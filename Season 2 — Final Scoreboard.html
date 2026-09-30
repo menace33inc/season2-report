@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Season 2 — Final Scoreboard</title>
+<style>
+:root{--bg:#0b0d12;--fg:#f5f2ea;--mut:#9aa0ad;--acc:#ffc21a;--acc2:#35e0c2;--hot:#ff5a4d;--card:#151923;--line:#262c3a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.35}
+.wrap{max-width:800px;margin:0 auto;padding:18px 14px 36px}
+.hero{text-align:center;padding:26px 12px 22px;border:2px solid var(--acc);border-radius:16px;background:linear-gradient(160deg,#1b1f2c,#0b0d12)}
+.tag{font-size:12px;letter-spacing:.2em;color:var(--acc2);font-weight:700}
+h1{font-size:clamp(36px,10.5vw,76px);line-height:.95;margin:10px 0 8px;font-weight:900;letter-spacing:-.02em}
+h1 span{color:var(--acc)}
+.sub{color:var(--mut);font-size:13px}
+.sec{margin-top:26px}
+h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc2);margin:0 0 10px}
+.score{border:2px solid var(--acc);border-radius:16px;padding:16px 12px;background:var(--card)}
+.score h2{text-align:center;color:var(--acc);font-size:15px}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.big div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+.big b{display:block;font-size:clamp(26px,8vw,46px);font-weight:900;color:var(--acc);line-height:1}
+.big i{font-style:normal;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.big .hot b{color:var(--hot)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 6px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+td b{color:var(--acc)}
+tr.tot td{border-bottom:0;font-weight:800;font-size:15px}
+.note{font-size:11px;color:var(--mut);margin-top:8px}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 2px}
+.bar span{display:block;height:100%;width:85.93%;background:linear-gradient(90deg,var(--acc2),var(--acc))}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.split div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:12px;color:var(--mut)}
+.split b{display:block;font-size:22px;color:var(--fg)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
+.panel p{margin:0 0 8px}.panel p:last-child{margin:0}
+.panel code{background:var(--bg);padding:2px 6px;border-radius:6px;color:var(--acc);font-size:13px}
+.row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:6px}
+.row .d{font-weight:900;font-size:20px;color:var(--acc);min-width:84px}
+.row .n{font-weight:700}
+.row .x{margin-left:auto;color:var(--mut);font-size:12px;text-align:right}
+.row.top{border-color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px}
+.wed{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.wed div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 4px;text-align:center;font-size:12px;color:var(--mut)}
+.wed b{display:block;color:var(--fg);font-size:17px}
+.wed em{display:block;font-style:normal;color:var(--acc);font-weight:900;font-size:20px;margin-top:2px}
+.total{text-align:center;margin-top:10px;font-weight:900;font-size:clamp(26px,8vw,44px);color:var(--acc)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12px;color:var(--mut)}
+.grid b{display:block;color:var(--fg);font-size:13px;margin-bottom:2px}
+.roster{display:grid;gap:6px}
+.roster div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;display:flex;gap:10px}
+.roster b{min-width:92px}
+.roster span{color:var(--mut)}
+.foot{text-align:center;margin-top:30px;padding:20px 10px;border-top:2px solid var(--acc)}
+.foot p{margin:0 0 6px;font-size:13px;color:var(--mut)}
+.foot h3{margin:8px 0;font-size:clamp(22px,7vw,34px);font-weight:900;color:var(--acc)}
+@media (max-width:480px){.grid{grid-template-columns:1fr}.roster b{min-width:78px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="tag">🏆 SEASON 2 — FOCUS ACHIEVEMENTS · FINAL HALL OF FAME</div>
+    <h1>WE DIDN'T COMPLETE TIMERS.<br><span>WE ERASED TIME.</span> ⚡</h1>
+    <div class="sub">📅 08/10/2026 – 09/28/2026 · Maximum temporal reduction through Focus rotation, Blitz mechanics &amp; Special Focus pushes</div>
+  </div>
+
+  <div class="sec score">
+    <h2>📊 Season 2 — Final Scoreboard</h2>
+    <div class="big">
+      <div><b>~4,019d</b><i>Timers managed</i></div>
+      <div class="hot"><b>~3,667d</b><i>Time reduced</i></div>
+    </div>
+    <table>
+      <tr><th>Domain</th><th>Timer volume</th><th>Time reduced</th></tr>
+      <tr><td>🔨 Build-Blitz</td><td><b>~1,828.50d</b></td><td><b>~1,571.27d</b></td></tr>
+      <tr><td>🧬 Co-op Research</td><td><b>~2,190.79d</b></td><td><b>~2,095.79d*</b></td></tr>
+      <tr class="tot"><td>🏆 TOTAL</td><td><b>~4,019.29d</b></td><td><b>~3,667.07d*</b></td></tr>
+    </table>
+    <div class="note">*Includes ~175 days of Wednesday Special Focus, reported as additional reduction activity, not additional original queue volume.</div>
+    <div class="split">
+      <div><b>57</b>quantified Build-Blitz segments</div>
+      <div><b>43</b>quantified research segments</div>
+    </div>
+    <div class="note" style="margin-top:12px">Build-Blitz reduction on quantified timers: <b style="color:var(--acc)">~85.93%</b></div>
+    <div class="bar"><span></span></div>
+  </div>
+
+  <div class="sec">
+    <h2>💡 The principle</h2>
+    <div class="panel"><p><b>Find the biggest timers. Rotate aggressively. Remove time faster than the normal queue could consume it.</b></p></div>
+  </div>
+
+  <div class="sec">
+    <h2>🥇 Biggest timer breakers</h2>
+    <div class="row top"><span class="d">104d</span><span class="n">Pringle</span><span class="x">Research · swapped at 20d</span></div>
+    <div class="row top"><span class="d">103d</span><span class="n">minion</span><span class="x">Research</span></div>
+    <div class="row"><span class="d">99d</span><span class="n">Gitski</span><span class="x">Research</span></div>
+    <div class="row"><span class="d">98d ×2</span><span class="n">Menace</span><span class="x">Research</span></div>
+    <div class="row"><span class="d">96d</span><span class="n">Gitski · Menace</span><span class="x">Research</span></div>
+    <div class="row"><span class="d">93d ×2</span><span class="n">Jacs</span><span class="x">Build-Blitz (+ 92d)</span></div>
+    <div class="row"><span class="d">90d ×2</span><span class="n">Humnoi · Val</span><span class="x">Research (+ Bax 90d)</span></div>
+    <div class="row"><span class="d">88d ×2</span><span class="n">Judith</span><span class="x">Research</span></div>
+  </div>
+
+  <div class="sec">
+    <h2>🚀 Wednesday special focus</h2>
+    <div class="wed">
+      <div><b>🍬 Candy</b><em>~50d</em>pushed</div>
+      <div><b>🏅 Val</b><em>~60d</em>pushed</div>
+      <div><b>⚡ Menace</b><em>~65d</em>pushed</div>
+    </div>
+    <div class="total">~175 DAYS 💥</div>
+    <div class="note" style="text-align:center">Saved medals concentrated into one coordinated push on massive research timers.</div>
+  </div>
+
+  <div class="sec">
+    <h2>⚙️ How it worked</h2>
+    <div class="panel">
+      <p><b>6-day cutoff.</b> <code>Timer → Focus → continue to ~6 days → rotate</code></p>
+      <p><b>Blitz.</b> Each Blitz removes 15% of the <i>current</i> remaining timer, so Blitzes compound.</p>
+      <p><b>AunAun's 4-Blitz demo:</b> 33d × 0.85⁴ = <b>17.23d</b> left → 15.77d removed (~47.80%).</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🔨 Build-Blitz — players who pushed through</h2>
+    <div class="roster">
+      <div><b>Humnoi</b><span>PP29 34d + PP30 39d</span></div>
+      <div><b>Rangers</b><span>PP28 32d + PP29 34d + 10d + 12d Gold Statue</span></div>
+      <div><b>Constance</b><span>PP26 18d + General 36d</span></div>
+      <div><b>Meliboo / meli</b><span>17–20d rotations + PP29 18d + PP30 36d</span></div>
+      <div><b>Gitski</b><span>PP30 17d + 3 × 20d</span></div>
+      <div><b>Thermaltake</b><span>PP27 29d</span></div>
+      <div><b>Pringle</b><span>PP28 30d + PP29 31d</span></div>
+      <div><b>Az</b><span>PP30 20d</span></div>
+      <div><b>Labrat</b><span>PP28 32d + PP30</span></div>
+      <div><b>Chocolatelover</b><span>PP29 28d + PP30 39d</span></div>
+      <div><b>Mela</b><span>PP27 30d + PP28 33d</span></div>
+      <div><b>Pak_OtshelniK</b><span>PP27 + 32d</span></div>
+      <div><b>Vari</b><span>PP28 32d + 16d + 40d rotation</span></div>
+      <div><b>EraAL Akatsuki</b><span>PP29 33d</span></div>
+      <div><b>Jagaielka</b><span>PP25 18d</span></div>
+      <div><b>CreamYwhite</b><span>PP28 31d + General 36d</span></div>
+      <div><b>Pixie</b><span>PP30 39d</span></div>
+      <div><b>Gal</b><span>PP28 27.5d</span></div>
+      <div><b>Jacs</b><span>2 × 90d + 2 × 93d + 92d</span></div>
+      <div><b>Candy</b><span>2 × 17d</span></div>
+      <div><b>kein</b><span>PP26 20–26d</span></div>
+      <div><b>rock</b><span>PP28 27d</span></div>
+      <div><b>val</b><span>3 × Gold Statues</span></div>
+      <div><b>dsg</b><span>PP28 30d</span></div>
+      <div><b>Kelvin</b><span>PP28 33d</span></div>
+      <div><b>nekky</b><span>37d</span></div>
+      <div><b>zackii</b><span>2 × 16d</span></div>
+      <div><b>kas</b><span>35d</span></div>
+      <div><b>fluer</b><span>PP26</span></div>
+      <div><b>Blith / Blithweed</b><span>Lab focus</span></div>
+      <div><b>AunAun</b><span>33d + 4 Blitzes</span></div>
+    </div>
+    <div class="note">Four entries without explicit timer values (Blithweed, Pak_OtshelniK list 1, Labrat list 2, fluer) use the average reduction-time estimate and are marked as estimated.</div>
+  </div>
+
+  <div class="sec">
+    <h2>🧬 Co-op research — roster</h2>
+    <div class="roster">
+      <div><b>Jacs</b><span>63d 19h + 2 × 23d + 91d track (73d actually reduced)</span></div>
+      <div><b>Bax</b><span>90d + 50d</span></div>
+      <div><b>Prince</b><span>20d + 16d + 22d</span></div>
+      <div><b>Gitski</b><span>15d + 24d + 26d + 96d + 99d</span></div>
+      <div><b>Judith</b><span>25d + 2 × 88d + 2 × 23d + 71d</span></div>
+      <div><b>D&amp;G</b><span>30d</span></div>
+      <div><b>Menace</b><span>12d + massive multi-slot rotations</span></div>
+      <div><b>Pringle</b><span>16d + 27d + 27d + 104d</span></div>
+      <div><b>Val</b><span>2 × 90d</span></div>
+      <div><b>rangers</b><span>2 × 16d</span></div>
+      <div><b>zackii</b><span>22d</span></div>
+      <div><b>Humnoi</b><span>40d + 42d + 2 × 90d</span></div>
+      <div><b>minion</b><span>103d</span></div>
+      <div><b>pixie</b><span>23d</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>👑 Hall of fame categories</h2>
+    <div class="grid">
+      <div><b>🏗️ Build-Blitz specialists</b>Repeatedly attacked PP25–PP30 infrastructure timers.</div>
+      <div><b>🧬 Research heavy-hitters</b>Absorbed the enormous 70–100+ day queues.</div>
+      <div><b>🔁 Rotation specialists</b>Stacked multiple queues and rotated Focus efficiently.</div>
+      <div><b>💥 Mega-timer breakers</b>Took on the 90–104 day monsters.</div>
+      <div><b>⚡ Blitz operators</b>Used the 15%-of-current-timer mechanic. AunAun.</div>
+      <div><b>🏅 Gold Statue crew</b>Rangers and val, including val's three-statue run.</div>
+      <div><b>🚀 Wednesday crew</b>Candy + Val + Menace, ~175 days pushed.</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <p>🔨 BUILD · 🧬 RESEARCH · 🔁 ROTATE · ⚡ BLITZ · 🚀 PUSH</p>
+    <h3>🏆 SEASON 2 — FOCUS COMPLETE.</h3>
+    <p>FOCUS HARD. ROTATE FAST. SAVE TIME.</p>
+  </div>
+
+</div>
+</body>
+</html>
